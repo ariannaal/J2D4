@@ -100,6 +100,26 @@ public class Main {
         List<Product> prodottiPiuCostosi = prodotti.stream().sorted(Comparator.comparingDouble(Product::getPrice).reversed()).toList();
         prodottiPiuCostosi.stream().limit(3).forEach(System.out::println);
 
+        System.out.println("ESERCIZIO 4 - 1/8/24");
+        double mediaOrdini = ordini.stream()
+                .mapToDouble(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum())
+                .average()
+                .orElse(0.0);
+
+        System.out.println("Media degli ordini: " + mediaOrdini);
+
+
+        System.out.println("ESERCIZIO 5 - 1/8/24");
+
+
+        System.out.println("Media del prezzo degli ordini: " + mediaOrdini + " €");
+        Map<String, Double> raggruppaPerCategoria = prodotti.stream()
+                .collect(Collectors.groupingBy(Product::getCategory,
+                        Collectors.summingDouble(Product::getPrice)));
+
+        raggruppaPerCategoria.forEach((categoria, somma) ->
+                System.out.println("Categoria: " + categoria + ", somma: " + somma + " €"));
+
 
         System.out.println("ESERCIZIO 3");
 
